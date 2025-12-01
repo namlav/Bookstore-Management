@@ -1,0 +1,65 @@
+﻿@model IEnumerable<QL_Sach_Nhom.Models.sp_TimKiemSachNangCao_Result>
+
+@{
+    ViewBag.Title = "Tìm Kiếm Sách Nâng Cao";
+}
+
+<h2>Tìm Kiếm Sách Nâng Cao</h2>
+
+@using (Html.BeginForm("TimKiemNangCao", "Home", FormMethod.Get, new { @class = "form-inline", @style = "margin-bottom:20px;" }))
+{
+    <div class="form-group">
+        <input type="text" name="TuKhoa" class="form-control" placeholder="Nhập tên sách..." value="@Request.QueryString["TuKhoa"]" />
+    </div>
+
+    <div class="form-group">
+        @Html.DropDownList("MaTG", (SelectList)ViewBag.MaTG, "-- Chọn Tác Giả --", new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.DropDownList("MaTL", (SelectList)ViewBag.MaTL, "-- Chọn Thể Loại --", new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.DropDownList("MaNXB", (SelectList)ViewBag.MaNXB, "-- Chọn NXB --", new { @class = "form-control" })
+    </div>
+
+    <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+    <a href="@Url.Action("TimKiemNangCao", "Home")" class="btn btn-default">Reset</a>
+}
+
+<hr />
+
+@if (Model != null && Model.Any())
+{
+    <table class="table table-bordered table-striped">
+        <tr>
+            <th>Tên Sách</th>
+            <th>Tác Giả</th>
+            <th>Thể Loại</th>
+            <th>NXB</th>
+            <th>Giá Bìa</th>
+            <th>Tồn Kho</th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.TenSach</td>
+                <td>@item.TenTG</td>
+                <td>@item.TenTL</td>
+                <td>@item.TenNXB</td>
+                <td>@string.Format("{0:0,0}", item.GiaBia) VNĐ</td>
+                <td>@item.SoLuongTon</td>
+            </tr>
+        }
+    </table>
+}
+else
+{
+    <div class="alert alert-warning">Không tìm thấy sách nào phù hợp.</div>
+}
+
+<p>
+    @Html.ActionLink("Quay lại danh sách", "Index")
+</p>

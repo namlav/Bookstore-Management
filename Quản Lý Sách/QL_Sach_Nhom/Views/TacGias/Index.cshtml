@@ -1,0 +1,51 @@
+﻿@model IEnumerable<QL_Sach_Nhom.Models.TacGia>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div style="text-align: center; font-family: sans-serif; font-size: 18px; color: #888; letter-spacing: 8px; text-transform: uppercase; border-top: 1px solid #ddd; border-bottom: 1px solid #ddd; padding: 10px 0; width: 50%; margin: 0 auto;">Tác Giả</div>
+
+<p>
+    @Html.ActionLink("Thêm Tác Giả", "Create", null,  new { @class = "btn btn-primary" })
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TenTG)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DiaChi)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DienThoai)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TenTG)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DiaChi)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DienThoai)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.MaTG }) |
+            @Html.ActionLink("Details", "Details", new { id=item.MaTG }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.MaTG })
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,42 @@
+﻿@model IEnumerable<QL_Sach_Nhom.Models.Sach>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div style="text-align: center; font-family: sans-serif; font-size: 18px; color: #888; letter-spacing: 8px; text-transform: uppercase; border-top: 1px solid #ddd; border-bottom: 1px solid #ddd; padding: 10px 0; width: 50%; margin: 0 auto;">Sách</div>
+
+<p>
+    @Html.ActionLink("Thêm Sách Mới", "Create", null, new { @class = "btn btn-primary", @style = "margin-left: 10px; margin-top:10px;"})
+    @Html.ActionLink("Tìm Kiếm Sách", "TimKiemNangCao", null, new { @class = "btn btn-info", @style = "margin-left: 10px; margin-top:10px;" })
+</p>
+
+
+<table class="table">
+    <tr>
+        <th>Tên Sách</th>
+        <th>Tác Giả</th>
+        <th>Thể Loại</th>
+        <th>NXB</th>
+        <th>Giá Bìa</th>
+        <th>Tồn Kho</th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.TenSach)</td>
+            <td>@Html.DisplayFor(modelItem => item.TacGia.TenTG)</td>
+            <td>@Html.DisplayFor(modelItem => item.TheLoai.TenTL)</td>
+            <td>@Html.DisplayFor(modelItem => item.NhaXuatBan.TenNXB)</td>
+            <td>@string.Format("{0:0,0}", item.GiaBia) VNĐ</td>
+            <td>@item.SoLuongTon</td>
+            <td>
+                @Html.ActionLink("Sửa", "Edit", new { id = item.MaSach }) |
+                @Html.ActionLink("Chi tiết", "Details", new { id = item.MaSach }) |
+                @Html.ActionLink("Xóa", "Delete", new { id = item.MaSach })
+            </td>
+        </tr>
+    }
+</table>
