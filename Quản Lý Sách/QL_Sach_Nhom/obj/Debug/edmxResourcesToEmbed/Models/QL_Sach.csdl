@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="QLNHASACHModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="NhaXuatBan">
+    <Key>
+      <PropertyRef Name="MaNXB" />
+    </Key>
+    <Property Name="MaNXB" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="TenNXB" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="DiaChi" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="DienThoai" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Saches" Relationship="Self.FK__Sach__MaNXB__4BAC3F29" FromRole="NhaXuatBan" ToRole="Sach" />
+  </EntityType>
+  <EntityType Name="Sach">
+    <Key>
+      <PropertyRef Name="MaSach" />
+    </Key>
+    <Property Name="MaSach" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="TenSach" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="MaTG" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="MaTL" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="MaNXB" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="NamXuatBan" Type="Int32" />
+    <Property Name="GiaBia" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="SoLuongTon" Type="Int32" />
+    <NavigationProperty Name="NhaXuatBan" Relationship="Self.FK__Sach__MaNXB__4BAC3F29" FromRole="Sach" ToRole="NhaXuatBan" />
+    <NavigationProperty Name="TacGia" Relationship="Self.FK__Sach__MaTG__49C3F6B7" FromRole="Sach" ToRole="TacGia" />
+    <NavigationProperty Name="TheLoai" Relationship="Self.FK__Sach__MaTL__4AB81AF0" FromRole="Sach" ToRole="TheLoai" />
+  </EntityType>
+  <EntityType Name="TacGia">
+    <Key>
+      <PropertyRef Name="MaTG" />
+    </Key>
+    <Property Name="MaTG" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="TenTG" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="DiaChi" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="DienThoai" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Saches" Relationship="Self.FK__Sach__MaTG__49C3F6B7" FromRole="TacGia" ToRole="Sach" />
+  </EntityType>
+  <EntityType Name="TheLoai">
+    <Key>
+      <PropertyRef Name="MaTL" />
+    </Key>
+    <Property Name="MaTL" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="TenTL" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="MoTa" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Saches" Relationship="Self.FK__Sach__MaTL__4AB81AF0" FromRole="TheLoai" ToRole="Sach" />
+  </EntityType>
+  <Association Name="FK__Sach__MaNXB__4BAC3F29">
+    <End Role="NhaXuatBan" Type="Self.NhaXuatBan" Multiplicity="1" />
+    <End Role="Sach" Type="Self.Sach" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NhaXuatBan">
+        <PropertyRef Name="MaNXB" />
+      </Principal>
+      <Dependent Role="Sach">
+        <PropertyRef Name="MaNXB" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Sach__MaTG__49C3F6B7">
+    <End Role="TacGia" Type="Self.TacGia" Multiplicity="1" />
+    <End Role="Sach" Type="Self.Sach" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TacGia">
+        <PropertyRef Name="MaTG" />
+      </Principal>
+      <Dependent Role="Sach">
+        <PropertyRef Name="MaTG" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Sach__MaTL__4AB81AF0">
+    <End Role="TheLoai" Type="Self.TheLoai" Multiplicity="1" />
+    <End Role="Sach" Type="Self.Sach" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TheLoai">
+        <PropertyRef Name="MaTL" />
+      </Principal>
+      <Dependent Role="Sach">
+        <PropertyRef Name="MaTL" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="QLNHASACHEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="NhaXuatBans" EntityType="Self.NhaXuatBan" />
+    <EntitySet Name="Saches" EntityType="Self.Sach" />
+    <EntitySet Name="TacGias" EntityType="Self.TacGia" />
+    <EntitySet Name="TheLoais" EntityType="Self.TheLoai" />
+    <AssociationSet Name="FK__Sach__MaNXB__4BAC3F29" Association="Self.FK__Sach__MaNXB__4BAC3F29">
+      <End Role="NhaXuatBan" EntitySet="NhaXuatBans" />
+      <End Role="Sach" EntitySet="Saches" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Sach__MaTG__49C3F6B7" Association="Self.FK__Sach__MaTG__49C3F6B7">
+      <End Role="TacGia" EntitySet="TacGias" />
+      <End Role="Sach" EntitySet="Saches" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Sach__MaTL__4AB81AF0" Association="Self.FK__Sach__MaTL__4AB81AF0">
+      <End Role="TheLoai" EntitySet="TheLoais" />
+      <End Role="Sach" EntitySet="Saches" />
+    </AssociationSet>
+    <FunctionImport Name="sp_TimKiemSachNangCao" ReturnType="Collection(QLNHASACHModel.sp_TimKiemSachNangCao_Result)">
+      <Parameter Name="TuKhoa" Mode="In" Type="String" />
+      <Parameter Name="MaTG" Mode="In" Type="String" />
+      <Parameter Name="MaTL" Mode="In" Type="String" />
+      <Parameter Name="MaNXB" Mode="In" Type="String" />
+    </FunctionImport>
+    <EntitySet Name="TaiKhoans" EntityType="QLNHASACHModel.TaiKhoan" />
+  </EntityContainer>
+  <ComplexType Name="sp_TimKiemSachNangCao_Result">
+    <Property Type="String" Name="MaSach" Nullable="false" MaxLength="10" />
+    <Property Type="String" Name="TenSach" Nullable="false" MaxLength="200" />
+    <Property Type="String" Name="TenTG" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="TenTL" Nullable="false" MaxLength="100" />
+    <Property Type="String" Name="TenNXB" Nullable="false" MaxLength="200" />
+    <Property Type="Int32" Name="NamXuatBan" Nullable="true" />
+    <Property Type="Decimal" Name="GiaBia" Nullable="true" Precision="18" Scale="2" />
+    <Property Type="Int32" Name="SoLuongTon" Nullable="true" />
+  </ComplexType>
+  <EntityType Name="TaiKhoan">
+    <Key>
+      <PropertyRef Name="TenDangNhap" />
+    </Key>
+    <Property Name="TenDangNhap" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="MatKhau" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="VaiTro" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="MaNV" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="MaKH" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="NgayTao" Type="DateTime" Precision="0" />
+    <Property Name="TrangThai" Type="Boolean" />
+  </EntityType>
+</Schema>

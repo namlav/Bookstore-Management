@@ -1,0 +1,39 @@
+﻿@model IEnumerable<QL_Sach_Nhom.Models.TheLoai>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div style="text-align: center; font-family: sans-serif; font-size: 18px; color: #888; letter-spacing: 8px; text-transform: uppercase; border-top: 1px solid #ddd; border-bottom: 1px solid #ddd; padding: 10px 0; width: 50%; margin: 0 auto;">Thể Loại</div>
+
+<p>
+    @Html.ActionLink("Thêm Thể Loại", "Create", null, new { @class = "btn btn-primary" })
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TenTL)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MoTa)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TenTL)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MoTa)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.MaTL }) |
+            @Html.ActionLink("Details", "Details", new { id=item.MaTL }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.MaTL })
+        </td>
+    </tr>
+}
+
+</table>
