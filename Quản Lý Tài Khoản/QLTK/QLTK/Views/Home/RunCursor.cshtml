@@ -1,0 +1,27 @@
+﻿@{
+    ViewBag.Title = "Cursor";
+}
+
+<h3>Kết quả Cursor Scan</h3>
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
+
+<a href="/Home/Index" class="btn btn-secondary mb-3">Back</a>
+
+<table class="table table-bordered">
+    <thead>
+        <tr><th>User</th><th>Status</th></tr>
+    </thead>
+    <tbody>
+        @foreach (System.Data.DataRow r in (ViewBag.Res as System.Data.DataTable).Rows)
+        {
+            <tr>
+                <td>@r["TenDangNhap"]</td>
+                <td>@r["TrangThai"]</td>
+            </tr>
+        }
+    </tbody>
+</table>
