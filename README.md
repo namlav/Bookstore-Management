@@ -1,4 +1,4 @@
-# Quản Lý Nhà Sách
+# Quản Lý Nhà Sách - NHÓM 3
 Đồ án môn học Hệ quản trị cơ sở dữ liệu
 
 Thành viên nhóm và vai trò:
