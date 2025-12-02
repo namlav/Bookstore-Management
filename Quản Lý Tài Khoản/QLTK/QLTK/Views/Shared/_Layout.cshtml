@@ -1,0 +1,133 @@
+﻿<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Security Dashboard</title>
+
+    <!-- 1. Font Google (Poppins) -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- 2. Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- 3. Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* GLOBAL STYLES */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f0f2f5; /* Xám xanh nhẹ */
+            color: #343a40;
+        }
+
+        /* NAVBAR */
+        .navbar {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); /* Gradient Tím Xanh */
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .navbar-brand {
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        /* CARD STYLES */
+        .card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+            .card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            }
+
+        .card-header {
+            border-radius: 15px 15px 0 0 !important;
+            background-color: #fff;
+            border-bottom: 1px solid #f0f0f0;
+            font-weight: 600;
+        }
+
+        /* BUTTONS */
+        .btn {
+            border-radius: 50px;
+            padding: 8px 20px;
+            font-weight: 500;
+        }
+
+        .btn-primary {
+            background: #667eea;
+            border: none;
+        }
+
+            .btn-primary:hover {
+                background: #5a6fd6;
+            }
+
+        .btn-danger {
+            background: #ff6b6b;
+            border: none;
+        }
+
+        .btn-warning {
+            background: #feca57;
+            border: none;
+            color: #fff;
+        }
+
+        /* TABLES */
+        .table thead th {
+            background-color: #6c757d;
+            color: white;
+            border: none;
+        }
+
+        .table-hover tbody tr:hover {
+            background-color: #f8f9fa;
+        }
+
+        /* UTILS */
+        .shadow-soft {
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+        }
+
+        .rounded-xl {
+            border-radius: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- MENU -->
+    <nav class="navbar navbar-expand-lg navbar-dark mb-4 sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="/"><i class="fas fa-shield-alt me-2"></i>SECURE ADMIN</a>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    @if (Session["User"] != null)
+                    {
+                        <li class="nav-item me-3">
+                            <span class="text-white bg-white bg-opacity-25 px-3 py-1 rounded-pill">
+                                <i class="fas fa-user-circle me-1"></i> @Session["User"]
+                            </span>
+                        </li>
+                        <li class="nav-item">
+                            <a class="btn btn-outline-light btn-sm" href="/Auth/Logout">
+                                <i class="fas fa-sign-out-alt me-1"></i> Đăng xuất
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container pb-5">
+        @RenderBody()
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

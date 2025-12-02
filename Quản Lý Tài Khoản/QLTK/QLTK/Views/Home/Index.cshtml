@@ -1,0 +1,192 @@
+﻿@using System.Data
+@{
+    ViewBag.Title = "Dashboard Hệ Thống";
+    DataTable dtUsers = ViewBag.Users as DataTable;
+}
+
+<!-- HIỂN THỊ THÔNG BÁO -->
+<div class="container-fluid mt-3">
+    @if (TempData["Msg"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show"><i class="fas fa-check-circle me-2"></i>@TempData["Msg"] <button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>
+    }
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show"><i class="fas fa-exclamation-triangle me-2"></i>@TempData["Error"] <button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>
+    }
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+
+        <!-- CỘT TRÁI: FORM TẠO MỚI -->
+        <div class="col-lg-4 mb-4">
+            <div class="card h-100 shadow-sm border-0">
+                <div class="card-header bg-success text-white py-3">
+                    <h6 class="m-0 fw-bold"><i class="fas fa-user-plus me-2"></i>Thêm nhân viên mới</h6>
+                </div>
+                <div class="card-body bg-light">
+                    <form action="/Home/Create" method="post">
+                        @Html.AntiForgeryToken()
+                        <div class="mb-3">
+                            <label class="fw-bold small text-muted">Tài khoản</label>
+                            <input name="username" class="form-control" placeholder="VD: nv_bich" required />
+                        </div>
+                        <div class="mb-3">
+                            <label class="fw-bold small text-muted">Mật khẩu</label>
+                            <input name="password" type="password" class="form-control" required />
+                        </div>
+                        <div class="mb-3">
+                            <label class="fw-bold small text-muted">Họ và Tên</label>
+                            <input name="HoTen" class="form-control" placeholder="VD: Trần Thị Bích" />
+                        </div>
+                        <div class="mb-4">
+                            <label class="fw-bold small text-muted">Vai trò</label>
+                            <select name="role" class="form-select">
+                                <option value="NhanVien">Nhân viên</option>
+                                <option value="Admin">Admin</option>
+                                <option value="KhachHang">Khách hàng</option>
+                            </select>
+                            <small class="text-muted fst-italic mt-1 d-block" style="font-size: 0.8rem;">*Tự sinh Mã NV nếu chọn Nhân viên</small>
+                        </div>
+                        <button type="submit" class="btn btn-success w-100 fw-bold"><i class="fas fa-save me-2"></i> Thêm mới</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- CỘT PHẢI: DANH SÁCH -->
+        <div class="col-lg-8">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-white py-3 border-bottom">
+                    <h6 class="m-0 fw-bold text-primary"><i class="fas fa-users me-2"></i>Danh sách tài khoản</h6>
+                </div>
+                <div class="card-body p-0 table-responsive">
+                    <table class="table table-hover mb-0 align-middle">
+                        <thead class="bg-light text-secondary">
+                            <tr>
+                                <th class="ps-4">Mã NV</th>
+                                <th>Tài khoản</th>
+                                <th>Họ tên</th>
+                                <th>Vai trò</th>
+                                <th class="text-center">Hành động</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @if (dtUsers != null)
+                            {
+                                foreach (DataRow r in dtUsers.Rows)
+                                {
+                                    <tr>
+                                        <td class="ps-4 fw-bold text-primary">@(r["MaNV"] != DBNull.Value ? r["MaNV"] : "-")</td>
+                                        <td class="fw-bold">@r["TenDangNhap"]</td>
+                                        <td>@r["HoTen"]</td>
+                                        <td>
+                                            @if (r["VaiTro"].ToString() == "Admin")
+                                            {<span class="badge bg-danger">Admin</span> }
+                                            else if (r["VaiTro"].ToString() == "NhanVien")
+                                            { <span class="badge bg-primary">Nhân viên</span> }
+                                            else
+                                            { <span class="badge bg-secondary">Khách</span>}
+                                        </td>
+                                        <td class="text-center">
+                                            <!-- NÚT SỬA (Kích hoạt Modal) -->
+                                            <!-- Chúng ta lưu dữ liệu vào các thuộc tính data- để JS đọc -->
+                                            <button type="button"
+                                                    class="btn btn-outline-warning btn-sm rounded-circle me-1"
+                                                    style="width: 32px; height: 32px; padding: 0;"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#editModal"
+                                                    data-user="@r["TenDangNhap"]"
+                                                    data-name="@r["HoTen"]"
+                                                    data-role="@r["VaiTro"]">
+                                                <i class="fas fa-edit" style="font-size: 0.8rem;"></i>
+                                            </button>
+
+                                            <!-- NÚT XÓA -->
+                                            <form action="/Home/DeleteUser" method="post" style="display:inline;" onsubmit="return confirm('Bạn có chắc chắn muốn xóa @r["TenDangNhap"] không?');">
+                                                @Html.AntiForgeryToken()
+                                                <input type="hidden" name="username" value="@r["TenDangNhap"]" />
+                                                <button type="submit" class="btn btn-outline-danger btn-sm rounded-circle" style="width: 32px; height: 32px; padding: 0;">
+                                                    <i class="fas fa-trash-alt" style="font-size: 0.8rem;"></i>
+                                                </button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ========================================== -->
+<!-- MODAL SỬA THÔNG TIN (ẨN MẶC ĐỊNH) -->
+<!-- ========================================== -->
+<div class="modal fade" id="editModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-warning">
+                <h5 class="modal-title fw-bold text-dark"><i class="fas fa-edit me-2"></i>Cập nhật thông tin</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <!-- Form này gửi về Home/Edit -->
+            <form action="/Home/Edit" method="post">
+                <div class="modal-body">
+                    @Html.AntiForgeryToken()
+
+                    <!-- Username (Readonly - Không cho sửa khóa chính) -->
+                    <div class="mb-3">
+                        <label class="fw-bold small text-muted">Tài khoản</label>
+                        <input type="text" name="username" id="editUsername" class="form-control bg-light" readonly />
+                    </div>
+
+                    <!-- Họ tên (Cho phép sửa) -->
+                    <div class="mb-3">
+                        <label class="fw-bold small text-muted">Họ và Tên</label>
+                        <input type="text" name="HoTen" id="editName" class="form-control" required />
+                    </div>
+
+                    <!-- Vai trò (Cho phép sửa) -->
+                    <div class="mb-3">
+                        <label class="fw-bold small text-muted">Vai trò</label>
+                        <select name="role" id="editRole" class="form-select">
+                            <option value="NhanVien">Nhân viên</option>
+                            <option value="Admin">Admin</option>
+                            <option value="KhachHang">Khách hàng</option>
+                        </select>
+                    </div>
+                </div>
+                +33
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                    <button type="submit" class="btn btn-warning fw-bold">Lưu thay đổi</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- SCRIPT JS ĐỂ ĐỔ DỮ LIỆU VÀO MODAL -->
+<script>
+    // Khi Modal chuẩn bị hiện lên
+    var editModal = document.getElementById('editModal');
+    editModal.addEventListener('show.bs.modal', function (event) {
+        // Nút nào đã kích hoạt modal?
+        var button = event.relatedTarget;
+
+        // Lấy thông tin từ các thuộc tính data- của nút đó
+        var user = button.getAttribute('data-user');
+        var name = button.getAttribute('data-name');
+        var role = button.getAttribute('data-role');
+
+        // Gán vào các ô input trong Modal
+        document.getElementById('editUsername').value = user;
+        document.getElementById('editName').value = name;
+        document.getElementById('editRole').value = role;
+    });
+</script>

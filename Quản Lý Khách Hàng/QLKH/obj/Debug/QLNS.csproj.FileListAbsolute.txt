@@ -1,0 +1,13 @@
+D:\deadline\Nhom3_HQTCSDL\QLNS\QLNS\obj\Debug\QLNS.csproj.AssemblyReference.cache
+D:\deadline\Nhom3_HQTCSDL\QLNS\QLNS\obj\Debug\QLNS.Properties.Resources.resources
+D:\deadline\Nhom3_HQTCSDL\QLNS\QLNS\obj\Debug\QLNS.csproj.GenerateResource.cache
+D:\deadline\Nhom3_HQTCSDL\QLNS\QLNS\obj\Debug\QLNS.csproj.CoreCompileInputs.cache
+D:\deadline\Nhom3_HQTCSDL\QLNS\QLNS\bin\Debug\QLNS.exe.config
+D:\deadline\Nhom3_HQTCSDL\QLNS\QLNS\bin\Debug\QLNS.exe
+D:\deadline\Nhom3_HQTCSDL\QLNS\QLNS\bin\Debug\QLNS.pdb
+D:\deadline\Nhom3_HQTCSDL\QLNS\QLNS\obj\Debug\QLNS.exe
+D:\deadline\Nhom3_HQTCSDL\QLNS\QLNS\obj\Debug\QLNS.pdb
+D:\deadline\Nhom3_HQTCSDL\QLNS\QLNS\obj\Debug\QLNS.KhachHangApp.resources
+D:\deadline\Nhom3_HQTCSDL\QLNS\QLNS\bin\Debug\System.Configuration.ConfigurationManager.dll
+D:\deadline\Nhom3_HQTCSDL\QLNS\QLNS\bin\Debug\System.Configuration.ConfigurationManager.xml
+D:\deadline\Nhom3_HQTCSDL\QLNS\QLNS\obj\Debug\QLNS.csproj.Up2Date

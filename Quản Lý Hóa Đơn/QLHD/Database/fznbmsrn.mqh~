@@ -1,0 +1,66 @@
+﻿using System.Data.Entity;
+using QLNS.Database.Entities; 
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace QLNS.Database
+{
+
+    public class DataContext : DbContext
+    {
+        public DataContext() : base("name=MyConnectionString")
+        {
+
+        }
+
+        // 1. Tác Giả
+        public DbSet<TacGia> TacGias { get; set; }
+
+        // 2. Thể Loại
+        public DbSet<TheLoai> TheLoais { get; set; }
+
+        // 3. Nhà Xuất Bản
+        public DbSet<NhaXuatBan> NhaXuatBans { get; set; }
+
+        // 4. Sách
+        public DbSet<Sach> Saches { get; set; }
+
+        // 5. Nhân Viên
+        public DbSet<NhanVien> NhanViens { get; set; }
+
+        // 6. Khách Hàng
+        public DbSet<KhachHang> KhachHangs { get; set; }
+
+        // 7. Phiếu Nhập
+        public DbSet<PhieuNhap> PhieuNhaps { get; set; }
+
+        // 8. Chi Tiết Phiếu Nhập
+        public DbSet<ChiTietPhieuNhap> ChiTietPhieuNhaps { get; set; }
+
+        // 9. Hóa Đơn
+        public DbSet<HoaDon> HoaDons { get; set; }
+
+        // 10. Chi Tiết Hóa Đơn
+        public DbSet<ChiTietHoaDon> ChiTietHoaDons { get; set; }
+
+        // 11. Tài Khoản
+        public DbSet<TaiKhoan> TaiKhoans { get; set; }
+
+        // 12. Doanh Thu Tháng
+        public DbSet<DoanhThuThang> DoanhThuThangs { get; set; }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder) 
+        {
+            modelBuilder.Entity<ChiTietHoaDon>()
+                .HasKey(ct => new { ct.MaSach, ct.SoHD });
+
+            modelBuilder.Entity<ChiTietPhieuNhap>()
+                .HasKey(ct => new { ct.MaSach, ct.SoPN });
+
+            modelBuilder.Entity<DoanhThuThang>()
+                .HasKey(dt => new { dt.Nam, dt.Thang });
+
+        }
+    }
+}
